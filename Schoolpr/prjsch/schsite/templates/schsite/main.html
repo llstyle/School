@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'schsite/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'schsite/style.css' %}">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Document</title>
+</head>
+<body>
+    <div class="anim" id="app">
+    
+    <button @click="button = !button" class="btn btn-outline-primary" value="">показать гиффики</button>
+    <div style="position: absolute;z-index: 2;">
+    <button v-if="button" @click="one" class="btn btn-primary btn-sm" style="z-index: 2;" id="one">гифф 1</button>
+    <button v-if="button" @click="one1" class="btn btn-primary btn-sm" style="z-index: 2;" id="on">гифф 2</button>
+    </div>
+    <div style="text-align: center;">
+        <img src="../../static/schsite/9Khl.gif" alt="" v-if="messag === '1'" class="resp animate__animated animate__fadeInLeft" style="z-index: 1;" width="600" height="400">
+        <img src="../../static/schsite/aaaaa.gif" alt="" v-if="messag === '2'" class="resp animate__animated animate__fadeInLeft" width="600" height="auto">  
+    </div>
+    <div>
+    <a href="/profile"  class="btn btn-outline-primary" style="width: 60%; margin-left: 20%; margin-top: 10px; margin-right: 20%;">Начать Обучение</a>
+    </div>
+    <div style="text-align: center;">
+    <button @click="cls()" class="btn btn-outline-primary" style="font-size: x-large;margin-top: 3%;">...</button>
+    </div>
+    <div v-if="inf" style="margin-top: 3%;" class="diva animate__animated animate__fadeInLeft">
+        <h2 style="color: white;margin-left: 20px;font-weight: bold;">Домашние задание</h2>
+        <p style="color: white;margin-left: 40px;font-size: medium;font-weight: bold;">просмотр и редактироваие домашнего задания<br> учителем. удобный и простой интерфейс . <br> Не режет глаза множеством кнопок</p>
+    </div>
+    <div v-if="inf"  class="div animate__animated animate__fadeInRight" ref="clas">
+        <h2 style="color: white;margin-left: 20px;font-weight: bold;">Домашние задание</h2>
+        <p style="color: white;margin-left: 40px;font-size: medium;font-weight: bold;">просмотр и редактироваие домашнего задания<br> учителем. удобный и простой интерфейс . <br> Не режет глаза множеством кнопок</p>
+    </div>
+
+    <div v-if="inf"  class="diva animate__animated animate__fadeInLeft">
+        <h2 style="color: white;margin-left: 20px;font-weight: bold;">Домашние задание</h2>
+        <p style="color: white;margin-left: 40px;font-size: medium;font-weight: bold;">просмотр и редактироваие домашнего задания<br> учителем. удобный и простой интерфейс . <br> Не режет глаза множеством кнопок</p>
+    </div>
+    <div v-if="inf" class="animate__animated animate__zoomIn">
+    <h2 style="margin-left: 45%; margin-top: 10%;">учителя</h2>
+    
+        <img src="../../static/schsite/Kiana.jpg" alt="" class="kiana animate__animated animate__zoomIn">
+        <br>
+        Борис Евген
+    </div>
+    </div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="js/wow.min.js"></script>
+<script>
+new WOW().init();
+</script>
+<script>
+
+var app = new Vue({
+    el: '#app',
+    data: {
+      info: 0,
+      messag: "1",
+      button: false,
+      inf: false,
+      clas: false,
+
+    },
+    methods: {
+        cls() {
+            this.inf = !this.inf  
+              
+        },
+        one(){
+            this.messag = '1';
+            sessionStorage.setItem('test', this.messag);
+        },
+        one1(){
+            this.messag = '2';
+            sessionStorage.setItem('test', this.messag);
+        }
+
+    },
+    mounted: function () {
+        if (sessionStorage.getItem('test')) {
+        this.messag = sessionStorage.getItem('test');       
+    }
+}
+
+  })
+</script>
+  
+</body>
+</html>

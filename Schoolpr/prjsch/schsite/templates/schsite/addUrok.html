@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    {% for s in users %}
+    {% for i in s.teachers_set.all %}
+    {% if user.username == i.author.username %}
+    <h2 style="margin: 1%;">Добавление Домашнего задания</h2>
+    <form action="{% url 'addUrok'  %}" method="POST" class="row g-3 needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="col-md-4">
+          <label for="validationCustom01" class="form-label">Тема урока</label>
+          <input type="text" class="form-control" id="validationCustom01"  required name="tema">
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom02" class="form-label">Домашние задание</label>
+          <input type="text" class="form-control" id="validationCustom02"  required name="dom">
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustomUsername" class="form-label">Врема задания</label>
+          <div class="input-group has-validation">
+            <span class="input-group-text" id="inputGroupPrepend">&#9200;</span>
+            <input type="date" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required name="date">
+            <div class="invalid-feedback">
+              пожлуйста ведите дату.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Врема сдачи</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">&#9200;</span>
+              <input type="date" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required name="date1">
+              <div class="invalid-feedback">
+                пожлуйста ведите дату.
+              </div>
+            </div>
+          </div>
+        <div class="col-md-6">
+          <label for="validationCustom03" class="form-label">Номер урока</label>
+          <input type="text" class="form-control" id="validationCustom03" required name="nomer">
+          <div class="invalid-feedback">
+            пожлуйста ведите номер урока.
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="exampleFormControlSelect2">Пресудствующие Ученики</label>
+            <select multiple class="form-control" id="exampleFormControlSelect2" name="man[]">
+                {% for categ in view.getGenres %}
+                <option value="{{categ.id}}" >{{categ.author.username}}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="invalid-feedback">
+            пожлуйста выберите пресудствующих учеников.
+          </div>
+        </div>
+        <label for="exampleFormControlSelect1">Урок</label>
+        <select class="form-control" id="exampleFormControlSelect1" name="predmet[]">
+        {% if i.author.username == user.username %}
+        {% for io in i.it.all %}
+            <option value="{{io.title}}" >{{io.title}}</option>
+        {% endfor %}
+        {% endif %}
+        </select>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">Создать дз</button>
+        </div>
+      </form>
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    <script>// Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+          'use strict'
+        
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.querySelectorAll('.needs-validation')
+        
+          // Loop over them and prevent submission
+          Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+        
+                form.classList.add('was-validated')
+              }, false)
+            })
+        })()
+        </script>
+</body>
+</html>

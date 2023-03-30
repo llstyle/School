@@ -1,0 +1,77 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Выйти</a>
+        </li>
+        {% endif %}
+        <li class="nav-item dropdown">
+          {% if user.is_authenticated == False %} 
+          <a class="nav-link " href="profile/regStud" id="navbarDropdown" role="button"  >
+            Register
+          </a>
+          {% endif %}
+          </li>
+          {% if user.is_authenticated == False %} 
+          <li>
+          <a class="nav-link " href="profile/login/" id="navbarDropdown" role="button"  >
+            login
+          </a>
+          </li>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <li>
+            <a class="nav-link" href="profile">{{user.username}}</a>
+          </li>
+          {% for st in student %}
+          {% if st.username == user.username %}
+          {% for car in st.students_set.all %}
+          {% if car.image %}
+          
+          <li>
+          <img class="nav-link" src="{{car.image.url}}" alt="" width="50" height="50" id="navbarDropdown" style="border-radius: 100px; border: lightgray solid 1px;">
+          </li>
+          {% else %}
+          <li>
+            <img src="../../static/schsite/150-1503945_transparent-user-png-default-user-image-png-png.png" alt="" width="50px" height="45px">
+          </li>
+          {% endif %}
+          <li>
+            <a class="nav-link" href="profile">Класс {{car.klas.klass}}</a>
+          </li>
+          {% endfor %}
+          {% for cr in st.teachers_set.all %}
+          {% if cr.image %}
+          <li>
+            <img src="{{cr.image.url}}" alt="" width="50px" height="50px" style="border-radius: 100px; border: lightgray solid 1px;">
+          </li>
+          {% else %}
+          <li>
+            <img src="../../static/schsite/150-1503945_transparent-user-png-default-user-image-png-png.png" alt="" width="50px" height="45px">
+          </li>
+          {% endif %}
+          <li>
+            <a class="nav-link " href="profile/addUrok" id="navbarDropdown" role="button"  >
+              Добавить Дз
+            </a>
+          </li>
+          {% endfor %}
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+
+
+
+      </ul>
+    </div>
+  </nav>
